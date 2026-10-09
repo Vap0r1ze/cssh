@@ -1,0 +1,51 @@
+{
+  "name": "@vap/cssh",
+  "private": false,
+  "version": "1.0.0",
+  "description": "Connect to a code-server terminal from the command line or Node.js",
+  "main": "./dist/CodeServerClient.js",
+  "types": "./dist/CodeServerClient.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/CodeServerClient.d.ts",
+      "require": "./dist/CodeServerClient.js",
+      "default": "./dist/CodeServerClient.js"
+    }
+  },
+  "files": [
+    "dist",
+    ".env.example"
+  ],
+  "bin": {
+    "cssh": "dist/shell.js"
+  },
+  "scripts": {
+    "build": "tsc --strict --target ES2022 --module commonjs --esModuleInterop --declaration --outDir dist CodeServerClient.ts config.ts shell.ts && node -e \"require('node:fs').chmodSync('dist/shell.js', 0o755)\"",
+    "prepack": "npm run build",
+    "test": "tsx --test CodeServerClient.test.ts",
+    "shell": "tsx shell.ts",
+    "typecheck": "tsc --noEmit --strict --target ES2022 --module commonjs --esModuleInterop CodeServerClient.ts CodeServerClient.test.ts config.ts shell.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/ws": "^8.18.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  },
+  "keywords": [
+    "code-server",
+    "terminal",
+    "ssh",
+    "cli"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  }
+}
